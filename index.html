@@ -5,51 +5,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css" integrity="sha512-RntatPOhEcQEA81gC/esYoCkGkL7AYV7TeTPoU+R9zE44/yWxVvLIBfBSaMu78rhoDd73ZeRHXRJN5+aPEK53Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Dashboard</title>
 </head>
 <body class="container mx-auto px-4">
-        <header class="p-3">
-            <h1 class="text-center">Weather Dashboard</h1>
+        <header class="p-3 h-16">
+            <h1 class="text-center text-xl">Weather Dashboard</h1>
         </header>
         <main class="grid grid-cols-12">
-                <aside class="search-section col-span-3 col-start-2">
+                <aside class="search-section col-span-3 col-start-2 border-2 border-gray-100">
                     <!-- input form -->
-                    <form class="search-form" name="search">
-                        <div class="grid grid-cols-6">
-                          <input class="search-input col-span-6" name="search">
-                          <button class="search-btn col-span-6" >Search</button>
-                        </div>
+                    <form class="search-form grid grid-cols-6" name="search" id="form1">
+                        <!-- <div class="grid grid-cols-6"> -->
+                          <input class="search-input col-span-6" name="search" value="">
+                          <select id="stateCode">
+                              
+                          </select>
+                          <button class="search-btn col-span-6" type="submit" form="form1"  >Search</button>
+                        <!-- </div> -->
                     </form>
                     <!-- past searches section -->
                     <ul class="past-search-list">
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus vel eveniet at voluptate exercitationem, culpa distinctio nostrum modi? Facere possimus, rerum dignissimos libero molestiae vitae corporis pariatur! Minus, in praesentium.</li>
                             
                     </ul>
                 </aside>
                 <section class="weather-display-section col-span-7 col-end-13">
-                    <div class="current-display-section">
-                        <!-- false data -->
+                    <div class="current-display-section border-2 border-gray-100 pl-4">
+                        <!-- current weather display -->
                         <ul class="">
-                            <li class="current-header">Lorem ipsum dolor, sit amet consectetur adipisicing elit. </li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quod unde nisi </li>
-                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae iste porro dolore</li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam eaque repellat </li>
-                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, nam error? </li>
+                            <li class="current-display" id="currentTitle"> </li>
+                            <li class="current-display" id="temp"> </li>
+                            <li class="current-display" id="wind"> </li>
+                            <li class="current-display" id="humid"></li>
+                            <li class="current-display" id="uv"> </li>
                         </ul>
                     </div>
-                    <aside class="five-day mt-10">
-                        <ul class="grid grid-cols-10">
-                            
-                            <li class="col-span-2 m-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit </li>
-                            <li class="col-span-2 m-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit </li>
-                            <li class="col-span-2 m-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit</li>
-                            <li class="col-span-2 m-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit</li>
-                            <li class="col-span-2 m-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit</li>
+                    <!-- five day forecast display -->
+                    <aside class="five-day mt-10 border-2 border-gray-100 grid grid-cols-10">
+                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day1">
+                            <li class="" id="forecastTitle"></li>
+                            <li class="" id="forecastTemp"></li>
+                            <li class="" id="forecastWind"></li>
+                            <li class="" id="forecastHumidity"></li>
+                            <li class="" id="forecastUv"></li>
                         </ul>
+                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day2">
+                            <li class="" id="forecastTitle"></li>
+                            <li class="" id="forecastTemp"></li>
+                            <li class="" id="forecastWind"></li>
+                            <li class="" id="forecastHumidity"></li>
+                            <li class="" id="forecastUv"></li>
+                        </ul>
+                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day3">
+                            <li class="" id="forecastTitle"></li>
+                            <li class="" id="forecastTemp"></li>
+                            <li class="" id="forecastWind"></li>
+                            <li class="" id="forecastHumidity"></li>
+                            <li class="" id="forecastUv"></li>
+                        </ul>
+                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day4">
+                            <li class="" id="forecastTitle"></li>
+                            <li class="" id="forecastTemp"></li>
+                            <li class="" id="forecastWind"></li>
+                            <li class="" id="forecastHumidity"></li>
+                            <li class="" id="forecastUv"></li>
+                        </ul>
+                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day5">
+                            <li class="" id="forecastTitle"></li>
+                            <li class="" id="forecastTemp"></li>
+                            <li class="" id="forecastWind"></li>
+                            <li class="" id="forecastHumidity"></li>
+                            <li class="" id="forecastUv"></li>
+                        </ul>
+
+
+
+
                     </aside>
                 </section>
 
         </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+        <script src="./assets/js/script.js"></script>
     </body>
     </html>
