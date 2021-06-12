@@ -1,11 +1,13 @@
 
-const inputData = document.querySelector(".search-input");
+let inputData = document.querySelector(".search-input");
 const pastSearchs = $(".past-search-list");
 // API variables
 const apiKey = "c3dbbcb04a32ec8684f7fd34432569a8";
 // storage variables
 const storageArray = [];
-const locationObj = {};
+const pullStorageArray = JSON.parse(localStorage.getItem("weather"));
+console.log(pullStorageArray)
+
 // variables for current forecast
 let locationLatitude;
 let locationLongitude;
@@ -42,23 +44,29 @@ const currentForecast = (location) => {
                 $("#wind").text("Wind: " + currentData.wind);
                 $("#humid").text("Humidity: " + currentData.humidity);
                 $("#uv").text("UV Index: " + currentData.uv);
-                locationObj.current = currentData;
                 locationLatitude = data.coord.lat;
                 locationLongitude = data.coord.lon;
-                fiveDayForecast(inputData.value, locationLatitude, locationLongitude);
+                fiveDayForecast(currentData, locationLatitude, locationLongitude);
+                
             })
         })
     };
+
+
+
+
+
+
     
     // function to fetch and display five day forcast
-    const fiveDayForecast = (location, latitude, longitude) => {
+    const fiveDayForecast = (currentData, latitude, longitude) => {
         const apiFiveDay = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude + "&units=imperial&exclude=current,minutely,hourly,alerts&appid=" + apiKey;
         fetch(apiFiveDay).then((response) => {
             response.json().then((data) => {
                 (data)
                 for(i = 1; i <= 5; i++) {
                     fiveDayData = {
-                        name: location,
+                        name: currentData.name,
                         date: data.daily[i].dt,
                         temp: data.daily[i].temp.day,
                         wind: data.daily[i].wind_speed + " MPH",
@@ -73,44 +81,39 @@ const currentForecast = (location) => {
                     append($("<li>").text(fiveDayData.humid).
                     append($("<li>").text(fiveDayData.uv))))));
                 }
+                const storageObj = {
+                    currentData,
+                    fiveDayData
+                }
+                storageArray.push(storageObj);
                 // add key to storage object and send object to save function
-                locationObj.fiveDay = fiveDayData;
-                saveLocationObj(locationObj);
+                saveLocationObj(currentData.name, storageArray);
             })
         })
     };
     
     // function to generate and display past query buttons
     // function to save and load the location object that contains current and five day forecast 
-    const saveLocationObj = (obj) => {
+    const saveLocationObj = (location, storageArray) => {
         pastSearchs.append($("<li>").
-        text(obj.current.name).
+        text(location).
         addClass("text-center p2 border-2 border-gray-100").
         on("click", () => {
             currentForecast();
             
         }));
-        const storageObj = JSON.stringify(obj);
-        localStorage.setItem("weather", storageObj);
+        console.log(storageArray)
+        localStorage.setItem("weather", JSON.stringify(storageArray));
     }
-    const loadPage = () => {
-        
+    const loadLocationObj = () => {
+        forEach ()
     }
     
     // event listeners
     $(".search-btn").on("click", (event) => {
     event.preventDefault();
     currentForecast(inputData.value);
-    // setTimeout(saveLocationObj, 1000);
     inputData.value = "";
     
 });
-pastSearchs.on("click", (event) => {
-    event.preventDefault();
-    
-})
-document.addEventListener("load", () => {
-    localStorage.getItem("item");
-
-})
 
