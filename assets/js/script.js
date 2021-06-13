@@ -120,11 +120,7 @@ $(".search-btn").on("click", (event) => {
     inputData.value = "";
     
 });
-window.onload = () => {
-    let lastLocation = JSON.parse(localStorage.getItem("weather"));
-    console.log(lastLocation[0])
-    // currentForecast(lastLocation);
-    generatePastBtn();
-}    
+window.onload = () => generatePastBtn();
+
 
 
