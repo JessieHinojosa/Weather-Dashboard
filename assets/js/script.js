@@ -100,9 +100,8 @@ const saveLocationObj = (location, storageArray) => {
 
 const generatePastBtn = () => {
     btnContainer.empty();
-    const btnLabel = JSON.parse(localStorage.getItem("weather"));
+    let btnLabel = JSON.parse(localStorage.getItem("weather"));
     btnLabel.forEach((item) => {
-        console.log(item)
         btnContainer.
            append($("<li>").
                     text(item).
