@@ -4,72 +4,83 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.2/tailwind.min.css" integrity="sha512-RntatPOhEcQEA81gC/esYoCkGkL7AYV7TeTPoU+R9zE44/yWxVvLIBfBSaMu78rhoDd73ZeRHXRJN5+aPEK53Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
     <title>Weather Dashboard</title>
 </head>
-<body class="container mx-auto px-4">
-        <header class=" bg-blue-500 border-2 bg-gradient-to-r border-gray-100 h-16 pt-4 pb-3 mb-5">
-            <h1 class="text-center text-xl ">Weather Dashboard</h1>
+<body class="container-fluid mx-auto bg-light">
+        <header class="row shadow p-3 mb-5 rounded bg-primary text-white  bg-blue">
+            <h1 class="col-6 text-center" >
+                Weather Dashboard
+            </h1>
         </header>
-        <main class="grid grid-cols-12">
-                <aside class="search-section col-span-3 col-start-1">
+        <main class="row justify-content-between ">
+                <aside class="col-4 mx-auto">
                     <!-- input form -->
-                    <form class="search-form grid grid-cols-6 p-1 border-b-4 border-blue-100" name="search" id="form1">
-                        <!-- <div class="grid grid-cols-6"> -->
-                          <input class="search-input col-span-6 border-2 border-gray-100" name="search" value="">
-                          <button class="search-btn col-span-6 border-2 border-gray-100" type="submit" form="form1"  >Search</button>
-                        <!-- </div> -->
+                    <div class="row justify-content-around mt-1">
+                        <form class="col-7 card shadow p-3 mb-5 bg-body rounded"" name="search" id="form1">
+                        <h3 class="text-center">City Name</h3>
+                          <input class="search-input col-12" name="search" value="">
+                          <button class="search-btn col-9 btn btn-info mt-2 mb-1 mx-4" type="submit" form="form1">Search</button>
                     </form>
                     <!-- past searches section -->
-                    <ul class="past-search-list p-1">
+                    
+                </div>
+                <div class="row justify-content-around">
+                    <ul class="past-search-list col-4">
                     </ul>
+                </div>
+                    
+                    
                 </aside>
-                <section class="weather-display-section col-span-8 col-end-13">
-                    <div class="current-display-section border-2 border-gray-100 pl-4">
+                <section class="col-8">
+                    <div class="row justify-content-center shadow p-3 mb-5 bg-body rounded" >
+                    <h3 class="col-12">Current Forecast</h3>
+                    <div class="current-display-section card col-8 p-0 border-3" style="width: 75%;">
                         <!-- current weather display -->
-                        <ul class="">
-                            <li class="current-display" id="currentTitle"> </li>
-                            <li class="current-display" id="temp"> </li>
-                            <li class="current-display" id="wind"> </li>
+                        <ul class="card-body list-unstyled ps-1 pt-1 m-0">
+                            <li class="current-display card-title p-1 bg-info text-center rounded-2 fs-3 text" id="currentTitle"> </li>
+                            <li class="current-display" id="rain"></li>
+                            <li class="current-display" id="temp"></li>
+                            <li class="current-display" id="wind"></li>
                             <li class="current-display" id="humid"></li>
-                            <li class="current-display" id="uv"> </li>
                         </ul>
                     </div>
+                    </div>
                     <!-- five day forecast display -->
-                    <aside class="five-day mt-5 border-2 border-gray-100 grid grid-cols-10">
-                        <h3 class="col-span-10 text-md ml-3">5-Day Forecast</h3>
-                        <ul class="col-span-2 m-3 border-2 border-gray-100 rounded-md pl-1" id="day1">
-                            <li class="forecast-data" id="forecast-date"></li>
+                    <aside class="row justify-content-center shadow p-3 mb-5 bg-body rounded"">
+                        <h3 class="col-12">5-Day Forecast</h3>
+                        <ul class="col-2 list-unstyled card me-1" id="day1">
+                            <li class="forecast-data card-title" id="forecast-date"></li>
                             <li class="forecast-data" id="forecast-temp"></li>
                             <li class="forecast-data" id="forecast-wind"></li>
                             <li class="forecast-data" id="forecast-humidity"></li>
                             <li class="" id="forecast-uv"></li>
                         </ul>
-                        <ul class="col-span-2 m-3 border-2 border-gray-100 rounded-md pl-1" id="day2">
-                            <li class="" id="forecast-date"></li>
+                        <ul class="col-2 list-unstyled card me-1" id="day2">
+                            <li class="card-title" id="forecast-date"></li>
                             <li class="" id="forecast-temp"></li>
                             <li class="" id="forecast-wind"></li>
                             <li class="" id="forecast-humidity"></li>
                             <li class="" id="forecast-uv"></li>
                         </ul>
-                        <ul class="col-span-2 m-3 border-2 border-gray-100 rounded-md pl-1" id="day3">
-                            <li class="" id="forecast-date"></li>
+                        <ul class="col-2 list-unstyled card me-1" id="day3">
+                            <li class="card-title" id="forecast-date"></li>
                             <li class="" id="forecast-temp"></li>
                             <li class="" id="forecast-wind"></li>
                             <li class="" id="forecast-humidity"></li>
                             <li class="" id="forecast-uv"></li>
                         </ul>
-                        <ul class="col-span-2 m-3 border-2 border-gray-100 rounded-md pl-1" id="day4">
-                            <li class="" id="forecast-date"></li>
+                        <ul class="col-2 list-unstyled card me-1" id="day4">
+                            <li class="card-title" id="forecast-date"></li>
                             <li class="" id="forecast-temp"></li>
                             <li class="" id="forecast-wind"></li>
                             <li class="" id="forecast-humidity"></li>
                             <li class="" id="forecast-uv"></li>
                         </ul>
-                        <ul class="col-span-2 m-3 border-2 border-gray-100 pl-1" id="day5">
-                            <li class="" id="forecast-date"></li>
+                        <ul class="col-2 list-unstyled card" id="day5">
+                            <li class="card-title" id="forecast-date"></li>
                             <li class="" id="forecast-temp"></li>
                             <li class="" id="forecast-wind"></li>
                             <li class="" id="forecast-humidity"></li>
@@ -81,7 +92,7 @@
 
                     </aside>
                 </section>
-
+            
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>

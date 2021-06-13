@@ -13,7 +13,7 @@ let currentData;
 // variables for five day forecast
 let fiveDayData;
 
-const pastBtnCss = "border-2 border-gray-100 rounded-md text-center"
+const pastBtnCss = "btn btn-outline-success btn-sm text-danger mt-1 d-block";
 
 
 // function to fetch and display current forecast
@@ -21,6 +21,7 @@ const currentForecast = (location) => {
     const apiCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
     fetch(apiCurrent).then((response) => {
         response.json().then((data) => {
+            console.log(data)
             // convert date value from api data
             let currentDate = new Date();
             let options = {
@@ -31,12 +32,13 @@ const currentForecast = (location) => {
             currentData = {
                 name: data.name,
                 date: formattedDate,
+                
                 temp: data.main.temp + "°F",
                 wind: data.wind.speed + " MPH",
                 humidity: data.main.humidity + "%",
-                uv: ""
+        
             }
-            $("#currentTitle").text(currentData.name + "(" + formattedDate + ")");
+            $("#currentTitle").text(currentData.name + "  (" + formattedDate + ")");
             $("#temp").text("Temp: " + currentData.temp);
             $("#wind").text("Wind: " + currentData.wind);
             $("#humid").text("Humidity: " + currentData.humidity);
@@ -63,7 +65,7 @@ const fiveDayForecast = (location, latitude, longitude) => {
                     wind: data.daily[i].wind_speed + " MPH",
                     humid: data.daily[i].humidity + "%",
                 }
-                const {name, date, temp, wind, humid} = fiveDayData;
+                const {temp, wind, humid} = fiveDayData;
                 // date conversion
                 let convertedDate = new Date();
                 convertedDate.setDate(convertedDate.getDate() + i);
@@ -74,31 +76,29 @@ const fiveDayForecast = (location, latitude, longitude) => {
                 $("#day" + [i]).find("#forecast-wind").text(wind);
                 $("#day" + [i]).find("#forecast-humidity").text(humid);
             }
+            // send location and storage array to be compared to localStorage before storing new entry
             storageArray.push(location);
-            // add key to storage object and send object to save function
             saveLocationObj(location, storageArray);
         })
     })
 };
 
-// function to save and load the location object that contains current and five day forecast 
+// ensure no two of the same locations are stored to localStorage 
 const saveLocationObj = (location, storageArray) => {
     localStorage.setItem("weather", JSON.stringify(storageArray));
     const compareStorageArray = () => {
         const storedArray = JSON.parse(localStorage.getItem("weather"));
         const comparedArray = 
         storedArray.filter((item, i, arry) => {
-            console.log("hello")
             return arry.indexOf(item) === i;
         })
-        
         localStorage.setItem("weather", JSON.stringify(comparedArray));
     }
     compareStorageArray();
     generatePastBtn(location)
 }
 
-const generatePastBtn = (location) => {
+const generatePastBtn = () => {
     btnContainer.empty();
     const btnLabel = JSON.parse(localStorage.getItem("weather"));
     btnLabel.forEach((item) => {
@@ -109,45 +109,9 @@ const generatePastBtn = (location) => {
                     addClass(pastBtnCss).
                     on("click", () => {
                         currentForecast(item)
-                    }))
-
+                    }));
     })
 }
-
-// function to pull local storage and execute generatePastBtn()
-const loadPage = () => {
-    const test = JSON.parse(localStorage.getItem("weather"));
-    
-    test.forEach((item) => {
-        console.log(item)
-        btnContainer.
-           append($("<li>").
-                    text(item).
-                    addClass(pastBtnCss).
-                    on("click", () => {
-                        currentForecast(location)
-                    }))
-
-    })
-
-  
-  
-    // const storageObj = JSON.parse(localStorage.getItem("weather"));
-    // const btnContainer = $(".past-search-list");
-
-    // storageObj.forEach((index) => {
-
-    //     const label = index.currentData.name
-    //     btnContainer.append($("<li>").
-    //     text(label).
-    //     addClass(pastBtnCss).
-    //     on("click", () => {
-    //         currentForecast(label)
-    //     }));
-    // })
-}  
-
-
 
 // event listeners
 $(".search-btn").on("click", (event) => {
@@ -156,6 +120,11 @@ $(".search-btn").on("click", (event) => {
     inputData.value = "";
     
 });
-// loadPage();
+window.onload = () => {
+    let lastLocation = JSON.parse(localStorage.getItem("weather"));
+    console.log(lastLocation[0])
+    // currentForecast(lastLocation);
+    generatePastBtn();
+}    
 
 
