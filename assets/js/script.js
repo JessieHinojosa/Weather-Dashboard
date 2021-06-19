@@ -18,7 +18,7 @@ const pastBtnCss = "btn btn-outline-success btn-sm text-danger mt-1 d-block";
 
 // function to fetch and display current forecast
 const currentForecast = (location) => {
-    const apiCurrent = "http://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
+    const apiCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + location + "&units=imperial&appid=" + apiKey;
     fetch(apiCurrent).then((response) => {
         response.json().then((data) => {
             console.log(data)
